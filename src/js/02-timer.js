@@ -52,7 +52,7 @@ function onClick(e) {
 }
 
 function addLeadingZero(timeObj) {
-  for (key in timeObj) {
+  for (let key in timeObj) {
     if (timeObj.hasOwnProperty(key)) {
       timeObj[key] = timeObj[key].toString().padStart(2, 0);
     }
