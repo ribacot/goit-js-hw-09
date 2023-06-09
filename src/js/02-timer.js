@@ -10,13 +10,31 @@ const refs = {
   secondsEl: document.querySelector('[data-seconds]'),
 };
 
+refs.btnStartEl.addEventListener('click', onClick);
+
 refs.btnStartEl.disabled = true;
 
 let selectedDate = null;
 let timerTime = null;
-const date = new Date();
-const dateNow = date.getTime();
-console.dir(dateNow);
+let date=null;
+ let dateNow=new Date;
+// console.dir(dateNow);
+
+function onClick() {setInterval(createTimerDom,1000)
+
+  // return console.log(timerTime);
+}
+function createTimerDom(){
+  date = new Date();
+  dateNow = date.getTime();
+  const time = selectedDate - dateNow;
+  
+  timerTime = convertMs(time);
+  const timerTimeLeading=addLeadingZero(timerTime)
+  createTextTimer(timerTimeLeading);
+
+}
+
 
 const options = {
   enableTime: true,
@@ -31,41 +49,26 @@ const options = {
       return window.alert('Please choose a date in the future');
     }
     refs.btnStartEl.disabled = false;
-    const time = selectedDate - dateNow;
-    timerTime = convertMs(time);
-    console.log(timerTime);
-    const timerTimeLeading = addLeadingZero(timerTime);
+    // const time = selectedDate - dateNow;
+    // timerTime = convertMs(time);
+    // console.log(timerTime);
 
-    createTimer(timerTimeLeading);
+    // createTimer(timerTimeLeading);
   },
 };
 
 function addLeadingZero(timeArr) {
-  const timeArrLeading = Object.values(timeArr).map(el =>
+  return Object.values(timeArr).map(el =>
     el.toString().padStart(2, 0)
   );
-  return timeArrLeading;
 }
 
-function createTimer(timeerTimeArr) {
-  refs.daysEl.textContent = timeerTimeArr[0];
-  refs.hoursEl.textContent = timeerTimeArr[1];
-  refs.minutesEl.textContent = timeerTimeArr[2];
+function createTextTimer(timerTimeArr) {
+  refs.daysEl.textContent = timerTimeArr[0];
+  refs.hoursEl.textContent = timerTimeArr[1];
+  refs.minutesEl.textContent = timerTimeArr[2];
   refs.secondsEl.textContent = timeerTimeArr[3];
 }
-// console.log(selectedDate);
-// const time = selectedDate - dateNow;
-// console.log(time)
-// const timerTime = convertMs(time);
-// console.log(timerTime);
 
-function onClick() {
-  // console.log(selectedDate);
-  const time = selectedDate - dateNow;
-  // console.log(time);
-  timerTime = convertMs(time);
-  return console.log(timerTime);
-}
 
 const calendars = flatpickr('#datetime-picker', options);
-refs.btnStartEl.addEventListener('click', onClick);
